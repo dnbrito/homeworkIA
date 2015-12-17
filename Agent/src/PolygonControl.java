@@ -3,32 +3,13 @@ import java.awt.Polygon;
 import java.awt.geom.Line2D;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JFrame;
 
 public class PolygonControl {
-	
-	private JFrame frame;
-    private Point startPoint;
-    private Point endPoint;
-    public List<Polygon> poligonos = new ArrayList<Polygon>();
+
+    Point startPoint;
+    Point endPoint;
+    List<Polygon> poligonos = new ArrayList<Polygon>();
 	List<Polygon> poligonosPlus = new ArrayList<Polygon>();
-	//List<Point> solucao = new ArrayList<Point>();
-	
-	public Point getStartPoint() {
-		return startPoint;
-	}
-
-	public void setStartPoint(Point startPoint) {
-		this.startPoint = startPoint;
-	}
-
-	public Point getEndPoint() {
-		return endPoint;
-	}
-
-	public void setEndPoint(Point endPoint) {
-		this.endPoint = endPoint;
-	}
 	
 	public List<Point> getPontosPlus(){
     	Point ponto;
@@ -45,23 +26,6 @@ public class PolygonControl {
     	todosPontos.add(endPoint);
     	return todosPontos;
     }
-    
-//    public List<Point> getPontos(){
-//    	Point ponto;
-//    	List<Point> todosPontos = new ArrayList<Point>();
-//    	
-//    	todosPontos.add(startPoint);
-//    	
-//    	for(Polygon p : poligonos){
-//    		for(int i = 0; i < p.npoints; i++){
-//    			ponto = new Point(p.xpoints[i], p.ypoints[i]);
-//    			todosPontos.add(ponto);
-//    		}
-//    	}
-//    	
-//    	todosPontos.add(endPoint);
-//    	return todosPontos;
-//    }
     
 	private Polygon criarPoligonoPlus(int [] xPoly, int [] yPoly){
 		int [] xPolyPlus = new int[xPoly.length];
@@ -129,15 +93,6 @@ public class PolygonControl {
 	    	}
     	}
     	
-//	    for(int i = 0; i < todosPontos.size(); i++){
-//	    	Point p = todosPontos.get(i);
-//	    	if(p.getX() != pontoInicial.getX() && p.getY() != pontoInicial.getY()){
-//	    		Line2D linha = new Line2D.Double(pontoInicial, p);
-//	    		if(!(intersectaArea(linha)))
-//	    			filhos.add(p);
-//	    	}
-//	    }
-
     	return filhos;
     }
     

@@ -1,36 +1,46 @@
+import java.awt.Point;
 import java.util.ArrayList;
 
 public class Node implements Comparable<Node>{
 	int depth;
 	Node parent;
-	State state;
-	Action action;
+	Point point;
 	ArrayList<Node> children;
 	
 	// f(State) = g(State) + h(State)
 	// path_cost == h(State)
-	int path_cost;
-	int f;
-	int g;
+	double path_cost;
+	double f;
+	double g;
 	
 	public Node() {
 		children = null;
 	}
 	
-	public Node (State initial){
+	public Node (Point p){
+		point = p;
 		depth = 0;
 		f = 0;
 		g = 0;
 		path_cost = 0;
 		parent = null;
-		state = initial;
 		children = null;
 	}
 
+	public Node (Point p, double h){
+		point = p;
+		depth = 0;
+		f = 0;
+		g = 0;
+		path_cost = h;
+		parent = null;
+		children = null;
+	}
+	
 	@Override
 	public int compareTo(Node o) {
         // For ascending order
-        return this.f-o.f;
+        return (int) ((int) this.f-o.f);
 	}
 	
 }
