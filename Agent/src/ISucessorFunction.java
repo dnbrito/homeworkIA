@@ -1,6 +1,7 @@
+import java.awt.Point;
 
 public interface ISucessorFunction {
 	
-	void add(State key, ActionState actionState);
+	void add(Point key, CostFor destination);
 
 }
