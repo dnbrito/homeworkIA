@@ -11,15 +11,16 @@ public abstract class SucessorFunction implements ISucessorFunction {
 	PolygonControl polygonControl;
 	
 	public SucessorFunction(){
-		List<Point> points = new ArrayList<Point>();
+		List<Point> allPoints = new ArrayList<Point>();
 		polygonControl = new PolygonControl(5, 800, 600);
-		points = polygonControl.getPontosPlus();
+		allPoints = polygonControl.getPolygonsBoundsPoints();
 		
-		for(Point point : points){
+		for(Point point : allPoints){
 			
 			// ADD O CUSTO DE CADA PONTO AO PONTO FINAL
 			cost.put(point, point.distance(polygonControl.endPoint));
-			List<Point> pointChildren = polygonControl.intersectaPonto(point);
+			// CADA PONTO ALCANÇAVEL É FILHO DO point
+			List<Point> pointChildren = polygonControl.reachablePoints(point);
 			for(Point point2 : pointChildren){
 				// ADD O CUSTO DE UM PONTO PARA CADA OUTRO PONTO
 				add(point, new CostFor(point2, calculateDistance(point, point2)));
@@ -27,7 +28,6 @@ public abstract class SucessorFunction implements ISucessorFunction {
 		}
 				
 	}
-	
 	
 	// MÉTODO PARA CALCULAR A DISTÂNCIA ENTRE DOIS PONTOS
 	public double calculateDistance(Point initialPoint, Point finalPoint){

@@ -138,44 +138,45 @@ public class PolygonControl {
 		}	
 		return false;
 	}
-    
-    
-    //********************************************************************************//
-	//********************************************************************************//
-	//********************************************************************************//
-	//********************************************************************************//
-    
-	public List<Point> getPontosPlus(){
-    	Point ponto;
-    	List<Point> todosPontos = new ArrayList<Point>();
-
-    	todosPontos.add(startPoint);
+	
+	// MÉTODO RETORNA UMA LISTA COM TODOS OS PONTOS DOS POLIGONOS LIMITANTES
+	public List<Point> getPolygonsBoundsPoints(){
+    	List<Point> allPoints = new ArrayList<Point>();
     	
-    	for(Polygon p : polygonsBounds){
-    		for(int i = 0; i < p.npoints; i++){
-    			ponto = new Point(p.xpoints[i], p.ypoints[i]);
-    			todosPontos.add(ponto);
+    	// ADD O PONTO INICIAL
+    	allPoints.add(startPoint); 
+    	
+    	Point pointAux;
+    	for(Polygon polygon : polygonsBounds){
+    		for(int i = 0; i < polygon.npoints; i++){
+    			// CRIANDO CADA PONTO DO POLIGONO ATUAL
+    			pointAux = new Point(polygon.xpoints[i], polygon.ypoints[i]);
+    			allPoints.add(pointAux);
     		}
     	}
-    	todosPontos.add(endPoint);
-    	return todosPontos;
+    	
+    	allPoints.add(endPoint);
+    	
+    	return allPoints;
     }
 
-    public List<Point> intersectaPonto(Point pontoInicial){
-    	List<Point> filhos = new ArrayList<Point>();
-    	List<Point> todosPontos = getPontosPlus();
-	    for(int i = 0; i < todosPontos.size(); i++){
-	    	Point p = todosPontos.get(i);
-	    	if(p.getX() != pontoInicial.getX() && p.getY() != pontoInicial.getY()){
-	    		Line2D linha = new Line2D.Double(pontoInicial, p);
-	    		if(!(intersectsWithPolygonsArea(linha)))
-	    			filhos.add(p);
+	
+	// MÉTODO QUE RETORNA OS FILHOS DO PONTO = PONTOS ALCANÇAVEIS POR ELE
+    public List<Point> reachablePoints(Point startPoint){
+    	List<Point> children = new ArrayList<Point>();
+    	List<Point> allPoints = getPolygonsBoundsPoints();
+    	
+    	for (Point point : allPoints){
+    		// EXCLUINDO A POSSIBILIDADE DE SE AUTO-ALCANÇAR
+	    	if(point.getX() != startPoint.getX() && point.getY() != startPoint.getY()){
+	    		Line2D line = new Line2D.Double(startPoint, point);
+	    		if(!(intersectsWithPolygonsArea(line)))
+	    			children.add(point);
 	    	}
-	    }
+    	}
 
-    	return filhos;
+    	return children;
     }
-    
-    
+
     
 }
