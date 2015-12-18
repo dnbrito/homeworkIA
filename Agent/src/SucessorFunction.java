@@ -4,15 +4,15 @@ import java.util.List;
 import java.util.Map;
 import java.awt.Point;
 
-public abstract class SucessorFunction implements ISucessorFunction {
+public class SucessorFunction implements ISucessorFunction {
 	Map<Point, List<CostFor>> map = new HashMap<Point, List<CostFor>>();
 	Map<Point, Double> cost = new HashMap<Point, Double>();
 	
 	PolygonControl polygonControl;
 	
-	public SucessorFunction(){
+	public SucessorFunction(int nPolygons){
 		List<Point> allPoints = new ArrayList<Point>();
-		polygonControl = new PolygonControl(5, 800, 600);
+		polygonControl = new PolygonControl(nPolygons, 800, 600);
 		allPoints = polygonControl.getPolygonsBoundsPoints();
 		
 		for(Point point : allPoints){

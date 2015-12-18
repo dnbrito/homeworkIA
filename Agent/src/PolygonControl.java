@@ -28,7 +28,7 @@ public class PolygonControl {
     private void initComponents(int nPolygons) {
     	// INSTANSIANDO startPoint E endPoint ALEATORIOS
     	startPoint = new Point(20, (int) (height * Math.random()));
-    	endPoint   = new Point(width - 20, (int) (height * Math.random()));
+    	endPoint   = new Point(width - 20, ((int) (height * Math.random())));
 
     	// LIMITES PARA OS LADOS
     	int sideSizeMin = 10;
@@ -80,7 +80,7 @@ public class PolygonControl {
  		int length = xPoly.length;
  		
  		// PARA i = 0 E i = 2
- 		for(int i = 0; i < 2; i+=2){
+ 		for(int i = 0; i <= 2; i+=2){
  			if(i == 0 ){
  				xPolygonBound[i] = xPoly[i] - 1;
  				xPolygonBound[i+1] = xPoly[i+1] - 1;

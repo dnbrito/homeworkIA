@@ -7,10 +7,4 @@ public class AgentBFS extends Agent {
 			fringe.add(node.children.get(i));
 	}
 	
-	@Override
-	protected void addInFringe(Node node, SucessorFunction f) {
-		node.children = expand(node, f);
-		add(node);
-	}
-	
 }

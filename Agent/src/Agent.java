@@ -5,8 +5,7 @@ import java.util.Collections;
 public abstract class Agent {
 	
 	ArrayList<Node> fringe = new ArrayList<Node>();
-	// TRATAR DFS CONTRA LOOPS INFINITOS
-	// ArrayList<Point> visited = new ArrayList<Point>();
+	//ArrayList<Point> visited = new ArrayList<Point>();
 	
 	protected ArrayList<Node> treeSearch(Point initial, Point end, SucessorFunction f){
 		fringe.add(new Node(initial, f.cost.get(initial)));
@@ -15,8 +14,7 @@ public abstract class Agent {
 				return null;
 			}else{
 				Node node = fringe.remove(0);
-				//TRATAR DFS CONTRA LOOPS INFINITOS
-				// visited.add(node.point);
+				//visited.add(node.point);
 				if (node.point == end){
 					ArrayList<Node> solution = new ArrayList<Node>();
 					while(node.parent != null){
@@ -26,7 +24,8 @@ public abstract class Agent {
 					Collections.reverse(solution);
 					return solution;
 				}else{
-					addInFringe(node, f);
+					node.children = expand(node, f);
+					add(node);
 				}
 			}
 		}	
@@ -58,7 +57,5 @@ public abstract class Agent {
 	}
 	
 	abstract protected void add(Node node); 
-	
-	abstract protected void addInFringe(Node node, SucessorFunction f);
 	
 }

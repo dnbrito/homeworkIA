@@ -9,10 +9,4 @@ public class AgentGreedy extends Agent{
 			Collections.sort(fringe);
 	}
 	
-	@Override
-	protected void addInFringe(Node node, SucessorFunction f) {
-		node.children = expand(node, f);
-		add(node);
-	}
-	
 }

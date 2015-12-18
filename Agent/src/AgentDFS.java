@@ -1,38 +1,23 @@
-import java.util.Stack;
-
+import java.util.ArrayList;
 
 public class AgentDFS extends Agent {
 
-	Stack<Node> stack = new Stack<Node>();
+	ArrayList<Node> stack = new ArrayList<Node>();
 	
 	@Override
 	protected void add(Node node) {
 		for (int i = fringe.size()-1; i >= 0; i--)
-			stack.push(fringe.remove(i));
+			stack.add(fringe.remove(i));
 		
 		for (int j = node.children.size()-1; j >= 0  ;j--)
-			stack.push(node.children.get(j));
+			stack.add(node.children.get(j));
 		
-		for (int k = 0; k < stack.size();k++)
-			fringe.add(stack.pop());
-
-	}
-
-	@Override
-	protected void addInFringe(Node node, SucessorFunction f) {
-		node.children = expand(node, f);
-		if (node.children.isEmpty()) {
-			if (node.parent.children.size() == 1) {
-				Node aux = node.parent;
-				aux.parent.children.remove(0);
-				aux.parent = null;
-			} else {
-				node.parent.children.remove(0);
-				node.parent = null;
-			}
-		} else {
-			add(node);
+		for (int k = stack.size()-1; k >= 0; k--){
+			Node node1 = stack.get(k);
+			//if(!visited.contains(node1.point))
+				fringe.add(node1);
 		}
+			
 	}
 	
 }
