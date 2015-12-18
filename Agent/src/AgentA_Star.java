@@ -1,11 +1,7 @@
 
 public class AgentA_Star extends AgentGreedy{
 
-	int addG(Node node, SucessorFunction f, int position){
-		if (f.costForNextCity.get(node.state).get(position) != null){
-			return f.costForNextCity.get(node.state).get(position).getCost() + node.g;
-		}
-		return 0;
+	double addG(Node node, SucessorFunction f, int position){
+		return node.g + f.map.get(node.point).get(position).cost;
 	}
-	
 }

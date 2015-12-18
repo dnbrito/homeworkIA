@@ -1,21 +1,26 @@
+import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Collections;
 
 public abstract class Agent {
 	
 	ArrayList<Node> fringe = new ArrayList<Node>();
+	// TRATAR DFS CONTRA LOOPS INFINITOS
+	// ArrayList<Point> visited = new ArrayList<Point>();
 	
-	protected ArrayList<ActionState> treeSearch(State initial, State end, SucessorFunction f){
-		fringe.add(new Node(initial));
+	protected ArrayList<Node> treeSearch(Point initial, Point end, SucessorFunction f){
+		fringe.add(new Node(initial, f.cost.get(initial)));
 		while (true){
 			if (fringe.isEmpty()){
 				return null;
 			}else{
 				Node node = fringe.remove(0);
-				if (node.state == end){
-					ArrayList<ActionState> solution = new ArrayList<ActionState>();
+				//TRATAR DFS CONTRA LOOPS INFINITOS
+				// visited.add(node.point);
+				if (node.point == end){
+					ArrayList<Node> solution = new ArrayList<Node>();
 					while(node.parent != null){
-						solution.add(new ActionState(node.state, node.action));
+						solution.add(node);
 						node = node.parent;
 					}
 					Collections.reverse(solution);
@@ -29,24 +34,26 @@ public abstract class Agent {
 	
 	protected ArrayList<Node> expand(Node node, SucessorFunction f){
 		ArrayList<Node> successors = new ArrayList<Node>();
-		for (int i = 0; i < f.map.get(node.state).size(); i++){
-			ActionState current = f.map.get(node.state).get(i);
+		for (int i = 0; i < f.map.get(node.point).size(); i++){
 			Node s = new Node();
-			s.parent = node;
-			s.action = current.getAction();
-			s.state = current.getState();
 			s.depth = node.depth+1;
-			if (f.cost.get(s.state) != null) {
-				s.path_cost = f.cost.get(s.state);
-				s.g = addG(node, f, i);
-				s.f = s.g + s.path_cost;
-			}
+			s.parent = node;
+			
+			CostFor cost = f.map.get(node.point).get(i);
+			s.point = cost.destination;
+			// h(x)
+			s.path_cost = f.cost.get(s.point); 
+			// g(x)
+			s.g = addG(node, f, i); 
+			// f(x) = g(x) + h(x);
+			s.f = s.g + s.path_cost;
+			
 			successors.add(s);
 		}
 		return successors;
 	}
 
-	int addG(Node node, SucessorFunction f, int position){
+	double addG(Node node, SucessorFunction f, int position){
 		return 0;
 	}
 	

@@ -9,9 +9,7 @@ public class Node implements Comparable<Node>{
 	
 	// f(State) = g(State) + h(State)
 	// path_cost == h(State)
-	double path_cost;
-	double f;
-	double g;
+	double f, g, path_cost;
 	
 	public Node() {
 		children = null;
@@ -27,12 +25,12 @@ public class Node implements Comparable<Node>{
 		children = null;
 	}
 
-	public Node (Point p, double h){
+	public Node (Point p, double cost){
 		point = p;
 		depth = 0;
 		f = 0;
 		g = 0;
-		path_cost = h;
+		path_cost = cost;
 		parent = null;
 		children = null;
 	}
